@@ -18,7 +18,7 @@ Ce dépot est la présentation du projet fil rouge  que j'ai réalisé pour mon 
 Cette présentation utilise le framework python Streamlit.  
 **Streamlit** est un framework open source conçu pour simplifier le développement d’applications web interactives.  
 Il est particulièrement utile pour intégrer des modèles de machine learning créés avec des bibliothèques comme TensorFlow, PyTorch, ou Scikit-learn, et les exposer via une interface simple.
-
+Ce dépot est visualisable à cette [adresse](http://streamlit.aventuresdata.com/rakuten/)    
  
 
 **Description du problème**    
