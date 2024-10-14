@@ -1,0 +1,17 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+.conda
+build/
+images/image_train
+fichiers/LinearSVC_CONCAT2_X_train.pkl
+fichiers/RandomForestClassifier_dump.joblib
+fichiers/LinearSVC_CONCAT2_X_test.pkl
+fichiers/EfficientNetB1_CONCAT2_X_train.pkl
+fichiers/GradientBoosting_dump.joblib
+fichiers/EfficientNetB1_CONCAT2_X_test.pkl
+fichiers/EMBEDDING GRU_CONCAT2_X_train.pkl
+fichiers/EMBEDDING_CONCAT2_X_train.pkl
+input/Dfcontour.csv
+input/DfColorMean.json
+input/X_train_update.csv
+
