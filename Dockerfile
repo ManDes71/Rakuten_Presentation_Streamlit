@@ -36,4 +36,4 @@ EXPOSE 8501
 HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health || exit 1
 
 # Point d'entrée pour démarrer l'application
-ENTRYPOINT ["streamlit", "run", "RAKUTEN.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.baseUrlPath=/streamlit/rakuten"]
+ENTRYPOINT ["streamlit", "run", "RAKUTEN.py", "--server.port=8501", "--server.address=0.0.0.0",  "--server.enableCORS=false", "--server.headless=true", "--server.enableXsrfProtection=false","--server.baseUrlPath=/rakuten"]

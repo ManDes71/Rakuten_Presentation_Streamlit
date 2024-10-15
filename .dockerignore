@@ -1,6 +1,5 @@
 /.idea/
 /.venv/
-/__pycache__/
-/images/images.zip
-/images/image_train/
+**/__pycache__/
+images/image_train/
 
