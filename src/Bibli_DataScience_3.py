@@ -17,25 +17,16 @@ import itertools
 from joblib import dump,load
 import tensorflow as tf
 import configparser
-#tempo 10/05/2024
+
 from langdetect import detect_langs
-#fin tempo
+
 import json
 import swifter
 from tensorflow.keras.preprocessing.text import tokenizer_from_json
 
-
-#def get_pickle_version():
-#    return configparser.__v
-
-
-#config.read('Rakuten_config.ini')   # Simon
-#config.read('Rakuten_config_3.ini')  # dell
-#config.read('Rakuten_config_2.ini')  # shadow
 config = configparser.ConfigParser()
 
-#config.read('/home/manuel/PycharmProjects/Streamlit/Rakuten/Rakuten_config.ini')
-config.read('D:\\Manuel\\PROJET\\STREAMLIT_DOSSIERS\\Ubuntu_Rakuten\\Rakuten_config.ini')
+config.read('/app/Rakuten_config_app.ini')
 
 print("section : ",config.sections())
 
@@ -58,20 +49,7 @@ DATAFRAME_Y = get_RACINE_DOSSIER() + 'Y_train_CVw08PX.csv'
 DATAFRAME_LANGUE = get_RACINE_DOSSIER() + 'df_langue.csv'
 DATAFRAME_NOMENCLATURE = get_RACINE_DOSSIER() + 'NOMENCLATURE.csv'
 DATAFRAME_STOPWORDS = get_RACINE_DOSSIER() + 'stopwords_FR_02.csv'
-#    ***********    DEL    *****************
-#RACINE_DOSSIER = 'C:\\Users\\DESPLANCHES.DOMAMP\\Datascientest\\'
-#RACINE_IMAGES = 'C:\\Users\\DESPLANCHES.DOMAMP\\Datascientest\\images\\images\\'
-#RACINE_SAUVEGARDE = 'C:\\Users\\DESPLANCHES.DOMAMP\\Datascientest\\fichiers\\'
 
-#    ***********    SHADOW   *****************
-#RACINE_DOSSIER = 'C:\\Users\\Shadow\\anaconda3\\envs\\tf\\PROJET\\'
-#RACINE_IMAGES = 'C:\\Users\\Shadow\\anaconda3\\envs\\tf\\PROJET\\images\\'
-#RACINE_SAUVEGARDE = 'C:\\Users\\Shadow\\anaconda3\\envs\\tf\\PROJET\\fichiers\\'
-
-#    ***********    PC SIMON    *****************
-#RACINE_DOSSIER = 'E:\\Manuel\\PROJET\\'
-#RACINE_IMAGES = 'E:\\Manuel\\PROJET\\images\\'
-#RACINE_SAUVEGARDE = 'E:\\Manuel\\PROJET\\fichiers\\'
 
 
 DOSSIER_IMAGES_TRAIN = get_RACINE_IMAGES() + 'image_train'

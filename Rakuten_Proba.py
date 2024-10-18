@@ -168,9 +168,9 @@ def show():
     del lr_mod_3, y_orig_3, y_pred_3
     gc.collect()
     df_prob_RF = ds.load_dataframe('RandomForestClassifier_prob.csv')
-    df_prob_RF = df_prob_RF / 100 if df_prob_RF.max().max() > 1 else df_prob_RF
+   
     df_prob_RF_formatte = df_prob_RF.applymap(format_number)
-    st.write("df_prob_RF.head()")
+   
     st.write( df_prob_RF_formatte.head())
 
     df_result = combiner_dataframe(df_prob_svc,df_prob_LR,df_prob_RF)
