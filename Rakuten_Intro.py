@@ -32,6 +32,7 @@ def file_selector(folder_path=None):
     selected_filename = st.selectbox('Choisissez une images à classer ', filenames)
     return os.path.join(folder_path, selected_filename)
 
+
 DOSSIER_CSV = ds.get_RACINE_DOSSIER()
 
 file_path = ds.get_RACINE_IMAGES()
@@ -65,10 +66,10 @@ def show():
             qui appartiennent au même code de produit.""", unsafe_allow_html=True)
         st.markdown("""
             Cette présentation a été construite avec le framework python **<span style='color:red'>Streamlit</span>**.  
-            Streamlit est un mini serveur web permetant d'executer
+            Streamlit est un mini serveur web permettant d'exécuter
             du code python et de manipuler des dataframes, c'est donc un framework idéal pour la datascience.  
-            Ce projet nécessitant des bibliothèques bien paticulières, j'ai utilisé Docker afin d'isoler ce projet dans son environnement spécifique.  
-            Certaines pages du projet nécéssitent un peu de calcul de la part de la bibliothèque *TensorFlow* (reseaux de neuronnes), j'ai donc 
+            Ce projet nécessitant des bibliothèques bien particulières, j'ai utilisé Docker afin d'isoler ce projet dans son environnement spécifique.  
+            Certaines pages du projet nécessitent un peu de calcul de la part de la bibliothèque *TensorFlow* (réseaux de neurones), j'ai donc 
             opté pour deployer ce conteneur **Docker** sur **Amazon Fargate** avec une configuration de <span style='color:blue'>*2 cpu*</span> et <span style='color:blue'>*16 Go*</span> de mémoire et en configurant l'**Auto Scaling** pour ajuster les performances aux pics de demandes.""", unsafe_allow_html=True)    
 
         # Introduction
@@ -156,8 +157,7 @@ def show():
             # Perform your Manupilations (In my Case applying Filters)
             img = load_image(uploadFile)
             st.image(img)
-            #nom_image = uploadFile.split('/')[2] # unix
-            nom_image = uploadFile.split('\\')[2] # windows
+            nom_image = uploadFile.split('/')[2]
             print(nom_image)
             nom_image_sans_jpg = nom_image.split('.')[0]
             print(nom_image_sans_jpg)

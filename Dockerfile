@@ -5,12 +5,22 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Installation des dépendances système nécessaires en une seule commande RUN et nettoyage après installation
-RUN apt-get update && apt-get install -y \
+#RUN apt-get update && apt-get install -y \
+#    build-essential \
+#    curl \
+#    software-properties-common \
+#    git \
+#    && rm -rf /var/lib/apt/lists/*
+RUN echo "deb http://ftp.fr.debian.org/debian bookworm main" > /etc/apt/sources.list && \
+    apt-get update && \
+    apt-get install -y \
     build-essential \
     curl \
     software-properties-common \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+    git && \
+    rm -rf /var/lib/apt/lists/*
+
+
 # Copie du fichier requirements.txt uniquement
 COPY requirements.txt /app/requirements.txt
 
