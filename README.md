@@ -160,6 +160,6 @@ Pour le **Contexte du projet**, cette page a besoin pour fonctionner :
 
 Commandes pour télécharger les fichiers > 50 Mo  :     
     
-   curl -o input/X_train_update.csv https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/X_train_update.csv
+   curl -o input/X_train_update.csv https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/X_train_update.csv  
    curl -o fichiers/RandomForestClassifier_dump.joblib https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/RandomForestClassifier_dump.joblib
    
