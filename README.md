@@ -156,4 +156,7 @@ Pour le **Contexte du projet**, cette page a besoin pour fonctionner :
  *  du fichier paramètres du modèle LogisticRegression  :  LogisticRegression_dump.joblib dans le dossier 'fichiers' 
  *  des probabilités obtenues pour chaque classe pour le modèle (modele.predict_proba()) :  LogisticRegression_prob.csv dans le dossier 'input'  
  *  du fichier paramètres du modèle RandomForestClassifier  :  RandomForestClassifier_dump.joblib dans le dossier 'fichiers' 
- *  des probabilités obtenues pour chaque classe pour le modèle (modele.predict_proba()) :  Mon_Modele_SVC_prob.pkl dans le dossier 'finput' 
+ *  des probabilités obtenues pour chaque classe pour le modèle (modele.predict_proba()) :  Mon_Modele_SVC_prob.pkl dans le dossier 'finput'
+
+   curl -o input/X_train_update.csv https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/X_train_update.csv
+   
