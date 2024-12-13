@@ -1,5 +1,5 @@
 Commandes à exécuter :  
-docker build --no-cache -t rakuten_projet .  
+docker build -t rakuten_projet .  
 docker run -d -p 8501:8501 rakuten_projet  
 écouter sur http://localhost:8501/rakuten/  
 ----------------------------------------------------   
