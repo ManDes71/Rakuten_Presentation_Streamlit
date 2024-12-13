@@ -1,4 +1,4 @@
-Commandes à exécuter :  
+**Commandes à exécuter :**  
 docker build -t rakuten_projet .  
 docker run -d -p 8501:8501 rakuten_projet  
 écouter sur http://localhost:8501/rakuten/  
@@ -165,7 +165,7 @@ Pour le **Contexte du projet**, cette page a besoin pour fonctionner :
  *  du fichier paramètres du modèle RandomForestClassifier  :  RandomForestClassifier_dump.joblib dans le dossier 'fichiers' 
  *  des probabilités obtenues pour chaque classe pour le modèle (modele.predict_proba()) :  Mon_Modele_SVC_prob.pkl dans le dossier 'finput'
 
-Commandes pour télécharger les fichiers > 50 Mo  :     
+Commandes pour télécharger les fichiers > 25 Mo  :     
     
    curl -o input/X_train_update.csv https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/X_train_update.csv  
    curl -o input/DfColorMean.json https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/DfColorMean.json    
