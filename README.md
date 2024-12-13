@@ -161,5 +161,10 @@ Pour le **Contexte du projet**, cette page a besoin pour fonctionner :
 Commandes pour télécharger les fichiers > 50 Mo  :     
     
    curl -o input/X_train_update.csv https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/X_train_update.csv  
-   curl -o fichiers/RandomForestClassifier_dump.joblib https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/RandomForestClassifier_dump.joblib
+   curl -o fichiers/RandomForestClassifier_dump.joblib https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/RandomForestClassifier_dump.joblib    
+   curl -o fichiers/GradientBoosting_dump.joblib https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/GradientBoosting_dump.joblib    
+   curl -o fichiers/EfficientNetB1_CONCAT2_X_train.pkl https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/EfficientNetB1_CONCAT2_X_train.pkl  
+   curl -o fichiers/EfficientNetB1_CONCAT2_X_test.pkl https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/EfficientNetB1_CONCAT2_X_test.pkl    
+   curl -o fichiers/EMBEDDING_CONCAT2_X_train.pkl https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/EMBEDDING_CONCAT2_X_train.pkl  
+   
    
