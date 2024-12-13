@@ -105,7 +105,7 @@ Pour le **Contexte du projet**, cette page a besoin pour fonctionner :
   
   Pour le **test d'une image**, cette page a besoin pour fonctionner :  
 
- *  des poids du modèle EfficientNetB1 à charger : EfficientNetB1_weight.h5 dans le dossier 'input'
+ *  des poids du modèle EfficientNetB1 à charger : EfficientNetB1_weight.h5 dans le dossier 'input'  [à télécharger](https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/EfficientNetB1_weight.h5)
  *  des fichiers pour faire la transformation inverse de l'encoder utilisé sur les classes lors de l'entrainement :  'EfficientNetB1_label_encoder.pkl' et 'EfficientNetB1_y_train' dans le dossier 'fichiers' 
  *  du fichier des nomenclatures pas classe : 'NOMENCLATURE.csv' dans le dossier 'input' 
  *  des poids du modèle SVC à charger :  'Mon_Modele_SVC_dump.joblib' dans le dossier 'fichiers' 
@@ -170,6 +170,7 @@ Commandes pour télécharger les fichiers > 25 Mo  :
    curl -o input/X_train_update.csv https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/X_train_update.csv  
    curl -o input/DfColorMean.json https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/DfColorMean.json    
    curl -o input/Dfcontour.csv https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/Dfcontour.csv    
+   curl -o input/EfficientNetB1_weight.h5 https://streamlit-rakuten.s3.eu-west-3.amazonaws.comEfficientNetB1_weight.h5    
    curl -o fichiers/RandomForestClassifier_dump.joblib https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/RandomForestClassifier_dump.joblib    
    curl -o fichiers/GradientBoosting_dump.joblib https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/GradientBoosting_dump.joblib    
    curl -o fichiers/EfficientNetB1_CONCAT2_X_train.pkl https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/EfficientNetB1_CONCAT2_X_train.pkl  
