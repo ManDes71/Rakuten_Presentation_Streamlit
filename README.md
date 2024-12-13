@@ -170,7 +170,7 @@ Commandes pour télécharger les fichiers > 25 Mo  :
    curl -o input/X_train_update.csv https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/X_train_update.csv  
    curl -o input/DfColorMean.json https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/DfColorMean.json    
    curl -o input/Dfcontour.csv https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/Dfcontour.csv    
-   curl -o input/EfficientNetB1_weight.h5 https://streamlit-rakuten.s3.eu-west-3.amazonaws.comEfficientNetB1_weight.h5    
+   curl -o input/EfficientNetB1_weight.h5 https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/EfficientNetB1_weight.h5    
    curl -o fichiers/RandomForestClassifier_dump.joblib https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/RandomForestClassifier_dump.joblib    
    curl -o fichiers/GradientBoosting_dump.joblib https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/GradientBoosting_dump.joblib    
    curl -o fichiers/EfficientNetB1_CONCAT2_X_train.pkl https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/EfficientNetB1_CONCAT2_X_train.pkl  
