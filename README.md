@@ -1,3 +1,9 @@
+Commandes à exécuter :  
+docker build --no-cache -t rakuten_projet .  
+docker run -d -p 8501:8501 rakuten_projet  
+écouter sur http://localhost:8501/rakuten/  
+
+
 La plateforme Challenge Data est gérée par l'équipe Data (ENS Paris), en partenariat avec le Collège  
 de France et le Data Lab de l'Institut Louis Bachelier.  
 Elle est soutenue par la Chaire CFM, l'Institut PRAIRIE et l'IDRIS du CNRS.
