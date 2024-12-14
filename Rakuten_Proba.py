@@ -126,13 +126,16 @@ def show():
     st.write("Accuracy: ", accuracy)
     f1 = f1_score(y_test, y_pred,average='weighted')
     df_prob_svc = ds.load_dataframe('Mon_Modele_SVC_prob.csv')
-    del lr_mod_1, y_orig, y_pred
+    del  y_orig, y_pred, lr1, lr_mod_1
     gc.collect()
     
     df_prob_svc_formatte = df_prob_svc.applymap(format_number)
     
     st.write("df_prob_svc.head()")
     st.write( df_prob_svc_formatte.head())
+
+    del df_prob_svc_formatte,df_prob_svc
+    gc.collect()
 
     st.markdown("""**Modèle_LogisticRegression** : """)
     st.write("Examinons 5 produits du jeu de test et pour chaque cas, la classe majoritaire prédite avec sa probabilité de survenance :")
@@ -147,11 +150,14 @@ def show():
     accuracy = lr_mod_2.score(X_test, y_orig_2)
     st.write("Accuracy: ", accuracy)
     df_prob_LR = ds.load_dataframe('LogisticRegression_prob.csv')
-    del lr_mod_2, y_orig_2, y_pred_2
+    del  y_orig_2, y_pred_2,  lr2, lr_mod_2
     gc.collect()
     df_prob_LR_formatte = df_prob_LR.applymap(format_number)
     st.write("df_prob_LR.head()")
     st.write( df_prob_LR_formatte.head())
+
+    del df_prob_LR_formatte, df_prob_LR
+    gc.collect()
     
       
     st.markdown("""**Modèle_RandomForestClassifier** : """)
@@ -160,30 +166,42 @@ def show():
     lr_mod_3=lr3.load_modele()
     y_orig_3 = lr3.get_y_orig()
     y_pred_3 = lr3.get_y_pred()
+    del  lr3
+    gc.collect()
    
     f1 = f1_score(y_orig_3, y_pred_3, average='weighted')
     st.write("F1 Score: ", f1)
     accuracy = lr_mod_3.score(X_test, y_orig_3.values)
     st.write("Accuracy: ", accuracy)
-    del lr_mod_3, y_orig_3, y_pred_3
+    del  y_orig_3, y_pred_3, lr_mod_3, f1, accuracy
     gc.collect()
-    df_prob_RF = ds.load_dataframe('RandomForestClassifier_prob.csv')
-   
+    df_prob_RF = ds.load_dataframe('RandomForestClassifier_prob2.csv')
+    print(df_prob_RF.head() )
+    #df_prob_RF = df_prob_RF  if df_prob_RF.max().max() > 1 else df_prob_RF
     df_prob_RF_formatte = df_prob_RF.applymap(format_number)
-   
+    st.write("df_prob_RF.head()")
     st.write( df_prob_RF_formatte.head())
 
-    df_result = combiner_dataframe(df_prob_svc,df_prob_LR,df_prob_RF)
-   
-    y_pred = df_result['max_classe'].astype(int)
+
+    del df_prob_RF_formatte, df_prob_RF
+    gc.collect()
+
+
+    #df_result = combiner_dataframe(df_prob_svc,df_prob_LR,df_prob_RF)
+    df_result = ds.load_dataframe('combinaison_proba.csv')
+    #y_pred = df_result['max_classe'].astype(int)
     
     df_result_formatte = df_result.applymap(format_number)
     
-    st.write("df_result.head()")
+    st.write("combinons les résultats des trois modèles pour chaque observation et déterminons la classe avec la probabilité maximale")
     st.write( df_result_formatte.head())
-    
+
+    del df_result,  df_result_formatte
+    gc.collect()
+
+"""  
     #st.write("df_prob_RF.head()")
-    
+
     st.markdown("<span style='color:red'>Prédiction par la probabilité maximale (la meilleure des 3 modèles) </span>", unsafe_allow_html=True)
     
     accuracy = accuracy_score(y_test,y_pred)
@@ -197,7 +215,7 @@ def show():
     #uploadFile = st.file_uploader(label="Upload image", type=['jpg', 'png'])
     uploadFile = file_selector()
     st.write('Vous avez choisi `%s`' % uploadFile)
-    
+
     if uploadFile is not None:
        # Perform your Manupilations (In my Case applying Filters)
        img = load_image(uploadFile)
@@ -235,3 +253,4 @@ def show():
        st.write(catdict[df_result['max_classe'][0]])
     else:
        st.write("Make sure you image is in JPG/PNG Format.")   
+"""
