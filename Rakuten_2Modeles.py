@@ -144,7 +144,7 @@ def show():
     gru = None
     
     train_X_gru = ds.load_ndarray('EMBEDDING GRU_CONCAT2_X_train') 
-    test_X_gru = ds.load_ndarray('EMBEDDING GRU_CONCAT2_X_test') 
+    test_X_gru = ds.load_ndarray('EMBEDDING_GRU_CONCAT2_X_test') 
     #train_y_gru = ds.load_ndarray('EMBEDDING GRU_y_train')
     #test_y_gru = ds.load_ndarray('EMBEDDING GRU_y_test')
    
