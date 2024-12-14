@@ -178,7 +178,7 @@ Commandes pour télécharger les fichiers > 25 Mo  :
    curl -o fichiers/EMBEDDING_CONCAT2_X_train.pkl https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/EMBEDDING_CONCAT2_X_train.pkl  
    curl -o fichiers/LinearSVC_CONCAT2_X_train.pkl https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/LinearSVC_CONCAT2_X_train.pkl  
    curl -o fichiers/LinearSVC_CONCAT2_X_test.pkl https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/LinearSVC_CONCAT2_X_test.pkl  
-   curl -o fichiers/EMBEDDING+GRU_CONCAT2_X_train.pkl https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/EMBEDDING+GRU_CONCAT2_X_train.pkl  
+   curl -o fichiers/'EMBEDDING GRU_CONCAT2_X_train.pkl' https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/EMBEDDING+GRU_CONCAT2_X_train.pkl  
    
    
    
