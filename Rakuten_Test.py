@@ -109,8 +109,8 @@ def show():
         st.markdown("<span style='color:red'>Prédiction par la description (Modèle Machine learning)</span>", unsafe_allow_html=True)
         # ML
         svc = ml.ML_SVC("Mon_Modele_SVC",process=False)
-        #designation,description = svc.get_DF_TEST_DESCRIPTION(uploadFile.split('/')[2]) # unix
-        designation,description = svc.get_DF_TEST_DESCRIPTION(uploadFile.split('\\')[2]) # windows
+        designation,description = svc.get_DF_TEST_DESCRIPTION(uploadFile.split('/')[2]) # unix
+        #designation,description = svc.get_DF_TEST_DESCRIPTION(uploadFile.split('\\')[2]) # windows
         st.write("designation",designation)
         st.write("description",description)
         pred=svc.predire_phrases(designation,description)
