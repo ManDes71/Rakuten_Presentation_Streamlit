@@ -144,7 +144,7 @@ Pour le **Contexte du projet**, cette page a besoin pour fonctionner :
  *  de l'historique de la precision et de perte issues de l'application du modèle au jeu de validation :  EMBEDDING GRU_val_accuracy.pkl et EMBEDDING GRU_val_loss.pkl dans le dossier 'fichiers' 
  *  des classes prédites obtenues par chaque modèle sur le jeu de test (=y_pred) :  EMBEDDING GRU_y_pred.pkl dans le dossier 'fichiers' 
  *  des situations du reseaux à l'avant-derniére couche : 
- *  *  'EMBEDDING GRU_CONCAT2_X_train' [à télécharger](https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/EMBEDDING+GRU_CONCAT2_X_train.pkl)
+ *  *  'EMBEDDING_GRU_CONCAT2_X_train' [à télécharger](https://streamlit-rakuten.s3.eu-west-3.amazonaws.com/EMBEDDING_GRU_CONCAT2_X_train.pkl)
  *  *  'EMBEDDING GRU_CONCAT2_X_test' 
  *  *  'EMBEDDING GRU_CONCAT2_y_train'
  *  *  'EMBEDDING GRU_CONCAT2_y_test'
