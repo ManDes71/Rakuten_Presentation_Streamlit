@@ -1,6 +1,6 @@
 **Commandes à exécuter :**  
 **docker build -t rakuten_projet .**  
-**docker run -d -p 8501:8501 rakuten_projet**  
+**docker run --env-file .env -d -p 8501:8501 rakuten_projet rakuten_projet**  
 **écouter sur http://localhost:8501/rakuten/**  
 **----------------------------------------------------**     
 
