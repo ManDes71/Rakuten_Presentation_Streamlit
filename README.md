@@ -16,6 +16,45 @@ Cette version introduit le téléchargement automatique des fichiers volumineux 
 **docker build -t rakuten_projet .**  
 **docker run --env-file .env -d -p 8501:8501 rakuten_projet**  
 **écouter sur http://localhost:8501/rakuten/**  
+
+## 🐳 Inspection du conteneur Docker
+
+Voici les commandes utiles pour inspecter et dépanner le conteneur :
+
+### 1. Voir les logs de démarrage (téléchargements S3)
+
+```bash
+docker logs <container_id>
+```
+
+Ou en temps réel :
+
+```bash
+docker logs -f <container_id>
+```
+
+### 2. Vérifier les fichiers téléchargés
+
+```bash
+docker exec <container_id> ls -lh /app/fichiers/
+docker exec <container_id> ls -lh /app/input/
+```
+
+### 3. Accéder à un shell interactif
+
+```bash
+docker exec -it <container_id> sh
+```
+
+Puis explorer les répertoires :
+
+```bash
+ls -lh /app/fichiers/
+ls -lh /app/input/
+```
+
+---
+
 **----------------------------------------------------**     
 
 

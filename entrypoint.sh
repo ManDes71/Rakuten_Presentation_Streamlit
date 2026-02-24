@@ -15,22 +15,33 @@
 set -e
 
 INPUT_DIR="/app/input"
+FICHIERS_DIR="/app/fichiers"
 mkdir -p "$INPUT_DIR"
+mkdir -p "$FICHIERS_DIR"
 
 # ---------------------------------------------------------------------------
-# Liste des fichiers à télécharger depuis S3
+# Liste des fichiers à télécharger depuis S3 vers /app/input
 # Ajoutez ici tous les fichiers nécessaires (un par ligne)
 # ---------------------------------------------------------------------------
 FILES_TO_DOWNLOAD=(
     "X_train_update.csv"
-    # "Y_train_CVw08PX.csv"
-    # "df_langue.csv"
-    # "NOMENCLATURE.csv"
-    # "stopwords_FR_02.csv"
-    # "Top40.csv"
-    # "DfhistoMean.json"
-    # "Dfcontour.csv"
-    # "DfColorMean.json"
+    "EfficientNetB1_weight.h5"
+    "Dfcontour.csv"
+    "DfColorMean.json"
+)
+
+# ---------------------------------------------------------------------------
+# Liste des fichiers à télécharger depuis S3 vers /app/fichiers
+# ---------------------------------------------------------------------------
+FICHIERS_TO_DOWNLOAD=(
+    "RandomForestClassifier_dump.joblib"
+    "GradientBoosting_dump.joblib"
+    "EfficientNetB1_CONCAT2_X_train.pkl"
+    "EfficientNetB1_CONCAT2_X_test.pkl"
+    "EMBEDDING_GRU_CONCAT2_X_train.pkl"
+    "EMBEDDING_CONCAT2_X_train.pkl"
+    "LinearSVC_CONCAT2_X_train.pkl"
+    "LinearSVC_CONCAT2_X_test.pkl"
 )
 
 # ---------------------------------------------------------------------------
@@ -54,6 +65,24 @@ else
         # Ne télécharge que si le fichier est absent (évite de re-télécharger à chaque restart)
         if [ -f "$DEST" ]; then
             echo "[SKIP] $FILE déjà présent dans $INPUT_DIR"
+        else
+            echo "[INFO] Téléchargement de $S3_URI → $DEST ..."
+            if aws s3 cp "$S3_URI" "$DEST"; then
+                echo "[OK]   $FILE téléchargé avec succès."
+            else
+                echo "[ERROR] Échec du téléchargement de $S3_URI"
+                echo "        Vérifiez les droits, le nom du bucket et le préfixe."
+                exit 1
+            fi
+        fi
+    done
+
+    for FILE in "${FICHIERS_TO_DOWNLOAD[@]}"; do
+        DEST="$FICHIERS_DIR/$FILE"
+        S3_URI="s3://${S3_BUCKET}/${S3_PREFIX}${FILE}"
+
+        if [ -f "$DEST" ]; then
+            echo "[SKIP] $FILE déjà présent dans $FICHIERS_DIR"
         else
             echo "[INFO] Téléchargement de $S3_URI → $DEST ..."
             if aws s3 cp "$S3_URI" "$DEST"; then
