@@ -343,10 +343,13 @@ def show():
         else:
             st.write("Cette visualisation n'est disponible que pour le modèle SVC .")
         del lr
-        del col1, col2, col3, df_test, selected_categories, filtered_df, all_text
-        del word_count, occurrences_triees, Dic_words, df_words_X, df_total_livres
-        del ax, cax, nomenclature, catdict
-        fig1 = None
-        fig2 = None
-        fig3 = None
+        try:
+            del col1, col2, col3, df_test, selected_categories, filtered_df, all_text
+            del word_count, occurrences_triees, Dic_words, df_words_X, df_total_livres
+            del ax, cax, nomenclature, catdict
+            fig1 = None
+            fig2 = None
+            fig3 = None
+        except NameError:
+            pass
         gc.collect()
