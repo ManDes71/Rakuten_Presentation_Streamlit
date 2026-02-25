@@ -191,7 +191,7 @@ def show():
     lr_mod = None
 
 
-    st.markdown("""**Entrainement du modèle commun** (agrégation des 2 modèles par la fonction **Concatenate** de TensorFlow)  : environ 20 s, veuillez patientez ... """)
+    st.markdown("""**Entrainement du modèle commun** (agrégation des 2 modèles par la fonction **Concatenate** de TensorFlow)  : environ 40 s, veuillez patienter ... """)
 
     print("train_X_svc.shape = ",train_X_svc.shape)
     print("train_X_gru.shape = ",train_X_gru.shape)

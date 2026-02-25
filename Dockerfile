@@ -47,7 +47,9 @@ RUN chmod +x /app/entrypoint.sh
 EXPOSE 8501
 
 # Vérification de la santé de l'application
-HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health || exit 1
+# --start-period=600s : laisse 10 min pour les téléchargements S3 avant de commencer les checks
+HEALTHCHECK --start-period=600s --interval=30s --timeout=10s --retries=3 \
+    CMD curl --fail http://localhost:8501/_stcore/health || exit 1
 
 # Point d'entrée : télécharge les fichiers S3 puis lance Streamlit
 ENTRYPOINT ["/app/entrypoint.sh"]

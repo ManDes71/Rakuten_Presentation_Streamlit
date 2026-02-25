@@ -488,8 +488,7 @@ class DS_EfficientNetB1(DS_CNN):
         super().__init__(nom_modele)
             
         self.__nom_modele = nom_modele
-        self.__base_model = EfficientNetB1(weights='imagenet', include_top=False,input_shape=(self._IMGSIZE,self._IMGSIZE,3))
-        
+        self.__base_model = None  # lazy init : construit uniquement lors du premier appel à create_modele()
       
         self.set_REPORT_ID("CNN31")
         self.set_REPORT_MODELE(nom_modele)
@@ -498,6 +497,8 @@ class DS_EfficientNetB1(DS_CNN):
         
 
      def create_modele(self,freeze=0):
+        if self.__base_model is None:
+            self.__base_model = EfficientNetB1(weights='imagenet', include_top=False,input_shape=(self._IMGSIZE,self._IMGSIZE,3))
         model = Sequential()
         if freeze > 0 :
             i=0
