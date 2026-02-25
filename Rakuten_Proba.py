@@ -116,10 +116,11 @@ def show():
     
     st.markdown("""**Modèle_SVC** : """)
     lr1 = ml.ML_SVC("Mon_Modele_SVC",process=False)
-    lr_mod_1=lr1.load_modele()
-    y_orig = lr1.get_y_orig()
-    y_pred = lr1.get_y_pred()
-    y_test =  ds.load_ndarray('y_test')
+    with st.spinner("Chargement du modèle SVC..."):
+        lr_mod_1=lr1.load_modele()
+    y_orig = np.array(lr1.get_y_orig()).ravel().astype(int)
+    y_pred = np.array(lr1.get_y_pred()).ravel().astype(int)
+    y_test =  np.array(ds.load_ndarray('y_test')).ravel().astype(int)
     f1 = f1_score(y_orig, y_pred, average='weighted')
     st.write("F1 Score: ", f1)
     accuracy = accuracy_score(y_test,y_pred)
@@ -140,9 +141,10 @@ def show():
     st.markdown("""**Modèle_LogisticRegression** : """)
     st.write("Examinons 5 produits du jeu de test et pour chaque cas, la classe majoritaire prédite avec sa probabilité de survenance :")
     lr2 = ml.ML_LogisticRegression("LogisticRegression",process=False)
-    lr_mod_2 = lr2.load_modele()
-    y_orig_2 = lr2.get_y_orig()
-    y_pred_2 = lr2.get_y_pred()
+    with st.spinner("Chargement du modèle LogisticRegression..."):
+        lr_mod_2 = lr2.load_modele()
+    y_orig_2 = np.array(lr2.get_y_orig()).ravel().astype(int)
+    y_pred_2 = np.array(lr2.get_y_pred()).ravel().astype(int)
     X_test =  ds.load_ndarray('X_test')
    
     f1 = f1_score(y_orig_2, y_pred_2, average='weighted')
@@ -163,15 +165,16 @@ def show():
     st.markdown("""**Modèle_RandomForestClassifier** : """)
     st.write("Examinons 5 produits du jeu de test et pour chaque cas, la classe majoritaire prédite avec sa probabilité de survenance :")
     lr3 = ml.ML_RandomForest("RandomForestClassifier",process=False)
-    lr_mod_3=lr3.load_modele()
-    y_orig_3 = lr3.get_y_orig()
-    y_pred_3 = lr3.get_y_pred()
+    with st.spinner("Chargement du modèle RandomForestClassifier..."):
+        lr_mod_3=lr3.load_modele()
+    y_orig_3 = np.array(lr3.get_y_orig()).ravel().astype(int)
+    y_pred_3 = np.array(lr3.get_y_pred()).ravel().astype(int)
     del  lr3
     gc.collect()
    
     f1 = f1_score(y_orig_3, y_pred_3, average='weighted')
     st.write("F1 Score: ", f1)
-    accuracy = lr_mod_3.score(X_test, y_orig_3.values)
+    accuracy = lr_mod_3.score(X_test, y_orig_3)
     st.write("Accuracy: ", accuracy)
     del  y_orig_3, y_pred_3, lr_mod_3, f1, accuracy
     gc.collect()

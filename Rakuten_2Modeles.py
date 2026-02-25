@@ -134,7 +134,10 @@ def show():
    
     st.write("Modèle RNN EMBEDDING GRU") 
     gru = rnn.RNN_GRU("EMBEDDING GRU")
-    y_orig,y_pred = gru.restore_predict_arrays()
+    with st.spinner("Chargement EMBEDDING GRU..."):
+        y_orig,y_pred = gru.restore_predict_arrays()
+    y_orig = np.array(y_orig).ravel().astype(int)
+    y_pred = np.array(y_pred).ravel().astype(int)
     f1 = f1_score(y_orig, y_pred, average='weighted')
     acc_score,classif=ds.get_classification_report(y_orig, y_pred)
     st.write("Accuracy: ", acc_score/100)
@@ -174,13 +177,13 @@ def show():
     lsvc = None
     gc.collect()
     lr = ml.ML_LinearSVC("LinearSVC",process=False)
+    with st.spinner("Chargement du modèle LinearSVC..."):
+        lr_mod = lr.load_modele()
+    y_orig = np.array(lr.get_y_orig()).ravel().astype(int)
+    y_pred = np.array(lr.get_y_pred()).ravel().astype(int)
 
-    lr_mod = lr.load_modele()
-    y_orig = lr.get_y_orig()
-    y_pred = lr.get_y_pred()
-
-    f1 = f1_score(y_orig.values, y_pred, average='weighted')
-    acc_score,classif=ds.get_classification_report(y_orig.values, y_pred)
+    f1 = f1_score(y_orig, y_pred, average='weighted')
+    acc_score,classif=ds.get_classification_report(y_orig, y_pred)
     st.write("Accuracy: ", acc_score/100)
     st.write("F1 Score: ", f1)
 
@@ -208,9 +211,9 @@ def show():
     label_encoder = LabelEncoder()
     
     
-    y_classes_converted = label_encoder.fit_transform(train_y_svc)
+    y_classes_converted = label_encoder.fit_transform(np.array(train_y_svc).copy())
     y_train_Network = to_categorical(y_classes_converted)
-    y_classes_converted = label_encoder.transform(test_y_svc)
+    y_classes_converted = label_encoder.transform(np.array(test_y_svc).copy())
     y_test_Network = to_categorical(y_classes_converted)
 
     del train_y_svc
@@ -317,7 +320,8 @@ def show():
     y_pred = label_encoder.inverse_transform(predicted_class)
 
     #print(f"La classe prédite est : {predicted_class}")
-    y_orig=test_y_svc
+    y_orig = np.array(test_y_svc).ravel().astype(int)
+    y_pred = np.array(y_pred).ravel().astype(int)
     accuracy = accuracy_score(y_orig,y_pred)
     f1 = f1_score(y_orig, y_pred,average='weighted')
     

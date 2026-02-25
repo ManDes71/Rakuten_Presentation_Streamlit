@@ -345,6 +345,8 @@ class ML_SVC(DS_ML):
         y_prob = text_clf.predict_proba(X_test)
         ds.save_ndarray(y_prob,self.__nom_modele+'_prob') 
         
+        y_test = np.array(y_test).ravel().astype(int)
+        y_pred = np.array(y_pred).ravel().astype(int)
         f1 = f1_score(y_test, y_pred, average='weighted')
         print("F1 Score: ", f1)
         accuracy = text_clf.score(X_test, y_test)
@@ -584,6 +586,8 @@ class ML_LinearSVC(DS_ML):
       
         #y_prob = text_lsvm.predict_proba(X_test)
         
+        y_test = np.array(y_test).ravel().astype(int)
+        y_pred = np.array(y_pred).ravel().astype(int)
         f1 = f1_score(y_test, y_pred, average='weighted')
         print("F1 Score: ", f1)
         accuracy = text_lsvm.score(X_test, y_test)
@@ -620,6 +624,8 @@ class ML_LinearSVC(DS_ML):
         y_pred = text_lsvm.predict(X_test)
         #y_prob = text_lsvm.predict_proba(X_test)
       
+        y_test = np.array(y_test).ravel().astype(int)
+        y_pred = np.array(y_pred).ravel().astype(int)
         f1 = f1_score(y_test, y_pred, average='weighted')
         print("F1 Score: ", f1)
         accuracy = text_lsvm.score(X_test, y_test)
@@ -683,6 +689,8 @@ class ML_LogisticRegression(DS_ML):
         
         
         
+        y_test = np.array(y_test).ravel().astype(int)
+        y_pred = np.array(y_pred).ravel().astype(int)
         f1 = f1_score(y_test, y_pred, average='weighted')
         print("F1 Score: ", f1)
         accuracy = text_lr.score(X_test, y_test)
@@ -798,6 +806,8 @@ class ML_RandomForest(DS_ML):
         
         
         
+        y_test = np.array(y_test).ravel().astype(int)
+        y_pred = np.array(y_pred).ravel().astype(int)
         f1 = f1_score(y_test, y_pred, average='weighted')
         print("F1 Score: ", f1)
         accuracy = text_forest.score(X_test, y_test)
@@ -825,17 +835,19 @@ class ML_RandomForest(DS_ML):
          X_test = ds.load_ndarray('X_test')
          y_test = ds.load_ndarray('y_test')
          
-          
+         import numpy as np
+         y_test_arr = np.array(y_test).ravel().astype(int)
              
          print(X_test[:5])
          
          # Testez le modèle sur l'ensemble de test
          y_pred = text_forest.predict(X_test)
+         y_pred = np.array(y_pred).ravel().astype(int)
          y_prob = text_forest.predict_proba(X_test)
          
-         f1 = f1_score(y_test, y_pred, average='weighted')
+         f1 = f1_score(y_test_arr, y_pred, average='weighted')
          print("F1 Score: ", f1)
-         accuracy = text_forest.score(X_test, y_test)
+         accuracy = text_forest.score(X_test, y_test_arr)
          print("Accuracy: ", accuracy)
          
          self.set_y_orig(y_test)
@@ -909,6 +921,8 @@ class ML_GradientBoosting(DS_ML):
         
         
         
+        y_test = np.array(y_test).ravel().astype(int)
+        y_pred = np.array(y_pred).ravel().astype(int)
         f1 = f1_score(y_test, y_pred, average='weighted')
         print("F1 Score: ", f1)
         accuracy = text_gboost.score(X_test, y_test)
@@ -945,6 +959,8 @@ class ML_GradientBoosting(DS_ML):
         y_pred = text_gboost.predict(X_test)
         y_prob = text_gboost.predict_proba(X_test)
       
+        y_test = np.array(y_test).ravel().astype(int)
+        y_pred = np.array(y_pred).ravel().astype(int)
         f1 = f1_score(y_test, y_pred, average='weighted')
         print("F1 Score: ", f1)
         accuracy = text_gboost.score(X_test, y_test)
@@ -1014,6 +1030,8 @@ class ML_XGBClassifier(DS_ML):
         
         
         
+        y_test = np.array(y_test).ravel().astype(int)
+        y_pred = np.array(y_pred).ravel().astype(int)
         f1 = f1_score(y_test, y_pred, average='weighted')
         print("F1 Score: ", f1)
         accuracy = text_xgboost.score(X_test, y_test_encoded)
@@ -1054,6 +1072,8 @@ class ML_XGBClassifier(DS_ML):
         y_pred = label_encoder.inverse_transform(y_pred_classes)
         y_prob = text_XGB.predict_proba(X_test)
       
+        y_test = np.array(y_test).ravel().astype(int)
+        y_pred = np.array(y_pred).ravel().astype(int)
         f1 = f1_score(y_test, y_pred, average='weighted')
         print("F1 Score: ", f1)
         accuracy = text_XGB.score(X_test, y_test_encoded)
@@ -1115,6 +1135,8 @@ class ML_MultinomialNB(DS_ML):
         
         
         
+        y_test = np.array(y_test).ravel().astype(int)
+        y_pred = np.array(y_pred).ravel().astype(int)
         f1 = f1_score(y_test, y_pred, average='weighted')
         print("F1 Score: ", f1)
         accuracy = text_NB.score(X_test, y_test)
@@ -1151,6 +1173,8 @@ class ML_MultinomialNB(DS_ML):
         y_pred = text_MultiNb.predict(X_test)
         y_prob = text_MultiNb.predict_proba(X_test)
       
+        y_test = np.array(y_test).ravel().astype(int)
+        y_pred = np.array(y_pred).ravel().astype(int)
         f1 = f1_score(y_test, y_pred, average='weighted')
         print("F1 Score: ", f1)
         accuracy = text_MultiNb.score(X_test, y_test)
@@ -1211,6 +1235,8 @@ class ML_DecisionTreeClassifier(DS_ML):
         
         
         
+        y_test = np.array(y_test).ravel().astype(int)
+        y_pred = np.array(y_pred).ravel().astype(int)
         f1 = f1_score(y_test, y_pred, average='weighted')
         print("F1 Score: ", f1)
         accuracy = text_DTCL.score(X_test, y_test)
@@ -1247,6 +1273,8 @@ class ML_DecisionTreeClassifier(DS_ML):
         y_pred = text_DecTree.predict(X_test)
         y_prob = text_DecTree.predict_proba(X_test)
       
+        y_test = np.array(y_test).ravel().astype(int)
+        y_pred = np.array(y_pred).ravel().astype(int)
         f1 = f1_score(y_test, y_pred, average='weighted')
         print("F1 Score: ", f1)
         accuracy = text_DecTree.score(X_test, y_test)
@@ -1325,6 +1353,8 @@ class ML_Grid_RandomForest(DS_ML):
         
         
         
+        y_test = np.array(y_test).ravel().astype(int)
+        y_pred = np.array(y_pred).ravel().astype(int)
         f1 = f1_score(y_test, y_pred, average='weighted')
         print("F1 Score: ", f1)
         accuracy = CV_text_forest.score(X_test, y_test)
@@ -1392,6 +1422,8 @@ class ML_Grid_MultinomialNB(DS_ML):
         
         
         
+        y_test = np.array(y_test).ravel().astype(int)
+        y_pred = np.array(y_pred).ravel().astype(int)
         f1 = f1_score(y_test, y_pred, average='weighted')
         print("F1 Score: ", f1)
         accuracy = CV_text_NB.score(X_test, y_test)

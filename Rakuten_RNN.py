@@ -202,11 +202,11 @@ def show():
     
     
     st.write(option1)
-   
-    train_acc,val_acc,tloss,tvalloss = emb.restore_fit_arrays()
-   
-    y_orig,y_pred = emb.restore_predict_arrays()
-    df_pred = emb.restore_predict_dataframe()
+
+    with st.spinner(f"Chargement des données de {option1} en cours..."):
+        train_acc,val_acc,tloss,tvalloss = emb.restore_fit_arrays()
+        y_orig,y_pred = emb.restore_predict_arrays()
+        df_pred = emb.restore_predict_dataframe()
     df_pred_formatte = df_pred.applymap(format_number)
     st.markdown("""**Catégories prédites par ordre d'importance** :""")
     st.write("Voici un échantillon de produits avec pour chaque code produit , les 3 meilleurs prédictions de codes produit trouvées par ce modèle (codes et pourcentages)")

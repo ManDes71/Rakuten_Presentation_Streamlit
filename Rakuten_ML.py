@@ -144,30 +144,32 @@ def show():
         #fin 3     
         
     maintenant = datetime.now()
-   
-    lr_mod = lr.load_modele()
-    y_orig = lr.get_y_orig()
-    y_pred = lr.get_y_pred()
-   
-   
-    X_test =  ds.load_ndarray('X_test')
+
+    with st.spinner(f"Chargement du modèle {option1} en cours..."):
+        lr_mod = lr.load_modele()
+        y_orig = lr.get_y_orig()
+        y_pred = lr.get_y_pred()
+
+        X_test = ds.load_ndarray('X_test')
    
     st.markdown("""**Performance du modèle** :""")
-    f1 = f1_score(y_orig.values, y_pred, average='weighted')
+    y_orig_arr = np.array(y_orig).ravel().astype(int)
+    y_pred_arr = np.array(y_pred).ravel().astype(int)
+    f1 = f1_score(y_orig_arr, y_pred_arr, average='weighted')
     st.write("F1 Score: ", f1)
     
     if option1 == 'SVC' :
         y_test =  ds.load_ndarray('y_test')
-        accuracy = accuracy_score(y_test.values,y_pred)
+        accuracy = accuracy_score(np.array(y_test).ravel().astype(int), y_pred_arr)
         st.write("Accuracy: ", accuracy)
     else:    
         if option1 == 'XGBClassifier' :
             label_encoder = LabelEncoder()
             label_encoder = ds.load_ndarray('XGBClassifier_label_encoder')
-            y_test_encoded = label_encoder.transform(y_orig)
+            y_test_encoded = label_encoder.transform(y_orig_arr)
             accuracy = lr_mod.score(X_test, y_test_encoded)
         else  :   
-            accuracy = lr_mod.score(X_test, y_orig.values)
+            accuracy = lr_mod.score(X_test, y_orig_arr)
         st.write("Accuracy: ", accuracy)
                                                 # Matrice confusion
     if option2 == 'Matrice confusion' :
@@ -179,10 +181,10 @@ def show():
         st.dataframe( df_pred_formatte.head(27))
         maintenant = datetime.now()
         st.markdown("""**Rapport de classification** : """)
-        acc_score,classif=ds.get_classification_report(y_orig.values, y_pred)
+        acc_score,classif=ds.get_classification_report(y_orig_arr, y_pred_arr)
         st.markdown(f"```\n{classif}\n```")
         st.markdown("""**Matrice de confusion** : """)
-        st_show_confusion_matrix(y_orig.values, y_pred)
+        st_show_confusion_matrix(y_orig_arr, y_pred_arr)
         nomenclature=pd.read_csv(DOSSIER_CSV+'NOMENCLATURE.csv',header=0,encoding='utf-8',sep=';',index_col=0)
         catdict=nomenclature.to_dict()['definition']
         st.write("#### Groupe 10,2280,2403 et 2705")
