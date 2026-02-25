@@ -193,7 +193,7 @@ def show():
 
 
 
-    st.markdown("""**Entrainement du modèle commun** (agrégation des 3 modèles par la fonction **Concatenate** de TensorFlow)  : environ 30 s   : """)
+    st.markdown("""**Entrainement du modèle commun** (agrégation des 3 modèles par la fonction **Concatenate** de TensorFlow)  : environ 30 s, veuillez patientez ...   : """)
 
 
     

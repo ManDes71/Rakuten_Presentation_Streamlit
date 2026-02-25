@@ -191,7 +191,7 @@ def show():
     lr_mod = None
 
 
-    st.markdown("""**Entrainement du modèle commun** (agrégation des 2 modèles par la fonction **Concatenate** de TensorFlow)  : environ 20 s """)
+    st.markdown("""**Entrainement du modèle commun** (agrégation des 2 modèles par la fonction **Concatenate** de TensorFlow)  : environ 20 s, veuillez patientez ... """)
 
     print("train_X_svc.shape = ",train_X_svc.shape)
     print("train_X_gru.shape = ",train_X_gru.shape)
@@ -285,17 +285,18 @@ def show():
 
    
 
-    #st.write("Entraînement du modèle...")
+    st.write("Entraînement du modèle...")
     
     class ProgressCallback(tf.keras.callbacks.Callback):
         def on_epoch_end(self, epoch, logs=None):
-            progress_bar.progress((epoch + 1) / 3)  # 10 époques dans votre cas
+            progress_bar.progress((epoch + 1) / 3)  # 3 époques dans votre cas
             status_text.text(f"Époque actuelle : {epoch + 1}, Perte : {logs['loss']:.4f}, Précision : {logs['accuracy']:.4f}")
+
 
     # Entraînement du modèle
     with tf.device('/CPU:0'):
         final_model.fit([train_X_svc,train_X_gru], y=y_train_Network, epochs=3, batch_size=32,
-                       callbacks=[ProgressCallback()])
+                    callbacks=[ProgressCallback()])
 
     print("modèle entrainné")
     #ds.save_model(final_model,"Rakuten_2M_weight.weights") 
