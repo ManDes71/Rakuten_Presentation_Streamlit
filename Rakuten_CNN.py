@@ -143,13 +143,12 @@ def show():
         #fin 3  
     
     st.write(option1)
-    
-   
-    train_acc,val_acc,tloss,tvalloss = Modele_cnn.restore_fit_arrays()
-    y_orig,y_pred = Modele_cnn.restore_predict_arrays()
-    f1 = f1_score(y_orig, y_pred, average='weighted')
-    
-    df_pred = Modele_cnn.restore_predict_dataframe()
+
+    with st.spinner(f"Chargement des données de {option1} en cours..."):
+        train_acc,val_acc,tloss,tvalloss = Modele_cnn.restore_fit_arrays()
+        y_orig,y_pred = Modele_cnn.restore_predict_arrays()
+        f1 = f1_score(y_orig, y_pred, average='weighted')
+        df_pred = Modele_cnn.restore_predict_dataframe()
     
     df_pred_formatte = df_pred.applymap(format_number)
     

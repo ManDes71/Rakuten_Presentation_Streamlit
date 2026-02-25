@@ -13,10 +13,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 from PIL import Image
-import nltk
-import spacy
 import gc
-import sklearn as sk
 import sys
 
 from sklearn.metrics import f1_score,confusion_matrix
@@ -28,13 +25,14 @@ import matplotlib.pyplot as plt
 import src
 from  src import Bibli_DataScience_3 as ds
 
-from  src  import ML_DataScience as ml
-from  src import CNN_DataScience_2 as cnn
-from  src import RNN_DataScience as rnn
+# Imports lourds chargés à la demande (pages CNN/RNN/Test seulement)
+# from src import ML_DataScience as ml   # importé dans chaque page
+# from src import CNN_DataScience_2 as cnn  # déclenche TF — importé dans Rakuten_CNN
+# from src import RNN_DataScience as rnn    # déclenche TF — importé dans Rakuten_RNN
 
 from datetime import datetime
 
-import tensorflow as tf
+# import tensorflow as tf  # non utilisé dans RAKUTEN.py directement
 
 import Rakuten_Intro,Rakuten_Exploration,Rakuten_ML,Rakuten_CNN
 import Rakuten_RNN,Rakuten_Test,Rakuten_Proba,Rakuten_3Modeles,Rakuten_2Modeles

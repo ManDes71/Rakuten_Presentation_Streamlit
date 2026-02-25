@@ -124,8 +124,11 @@ def show():
       
     st.write("Modèle CNN EfficientNetB1")  
     Modele_cnn = cnn.DS_EfficientNetB1("EfficientNetB1")
-    train_acc,val_acc,tloss,tvalloss = Modele_cnn.restore_fit_arrays()
-    y_orig,y_pred = Modele_cnn.restore_predict_arrays()
+    with st.spinner("Chargement EfficientNetB1..."):
+        train_acc,val_acc,tloss,tvalloss = Modele_cnn.restore_fit_arrays()
+        y_orig,y_pred = Modele_cnn.restore_predict_arrays()
+    y_orig = np.array(y_orig).ravel().astype(int)
+    y_pred = np.array(y_pred).ravel().astype(int)
     f1 = f1_score(y_orig, y_pred, average='weighted')
     st.write("F1 Score: ", f1)
     acc_score,classif=ds.get_classification_report(y_orig, y_pred)
@@ -146,7 +149,10 @@ def show():
 
     st.write("Modèle RNN EMBEDDING") 
     emb = rnn.RNN_EMBEDDING("EMBEDDING")
-    y_orig,y_pred = emb.restore_predict_arrays()
+    with st.spinner("Chargement EMBEDDING..."):
+        y_orig,y_pred = emb.restore_predict_arrays()
+    y_orig = np.array(y_orig).ravel().astype(int)
+    y_pred = np.array(y_pred).ravel().astype(int)
     f1 = f1_score(y_orig, y_pred, average='weighted')
     acc_score,classif=ds.get_classification_report(y_orig, y_pred)
     st.write("Accuracy: ", acc_score/100)
@@ -167,18 +173,13 @@ def show():
 
 
     lr = ml.ML_LinearSVC("LinearSVC",process=False)
+    with st.spinner("Chargement du modèle LinearSVC..."):
+        lr_mod = lr.load_modele()
+    y_orig = np.array(lr.get_y_orig()).ravel().astype(int)
+    y_pred = np.array(lr.get_y_pred()).ravel().astype(int)
 
-    lr_mod = lr.load_modele()
-    y_orig = lr.get_y_orig()
-    y_pred = lr.get_y_pred()
-
-    #print("type(y-orig)", type(y_orig))
-    #print("y-orig",y_orig)
-    #print("type(y_pred)", type(y_pred))
-    #print("y_pred",y_pred)
-
-    f1 = f1_score(y_orig.values, y_pred, average='weighted')
-    acc_score,classif=ds.get_classification_report(y_orig.values, y_pred)
+    f1 = f1_score(y_orig, y_pred, average='weighted')
+    acc_score,classif=ds.get_classification_report(y_orig, y_pred)
     st.write("Accuracy: ", acc_score/100)
     st.write("F1 Score: ", f1)
 
@@ -192,7 +193,7 @@ def show():
 
 
 
-    st.markdown("""**Entrainement du modèle commun** (agrégation des 3 modèles par la fonction **Concatenate** de TensorFlow)  : environ 30 s   : """)
+    st.markdown("""**Entrainement du modèle commun** (agrégation des 3 modèles par la fonction **Concatenate** de TensorFlow)  : environ 1 min, veuillez patienter ...   : """)
 
 
     
@@ -218,13 +219,13 @@ def show():
     label_encoder = LabelEncoder()
     
     
-    y_classes_converted = label_encoder.fit_transform(train_y_svc)
+    y_classes_converted = label_encoder.fit_transform(np.array(train_y_svc).copy())
     del train_y_svc
     gc.collect()
     test_X_svc = ds.load_ndarray('LinearSVC_CONCAT2_X_test')
     test_y_svc = ds.load_ndarray('LinearSVC_CONCAT2_y_test')
     y_train_Network = to_categorical(y_classes_converted)
-    y_classes_converted = label_encoder.transform(test_y_svc)
+    y_classes_converted = label_encoder.transform(np.array(test_y_svc).copy())
     y_test_Network = to_categorical(y_classes_converted)
 
     del  y_classes_converted
@@ -334,7 +335,8 @@ def show():
     y_pred = label_encoder.inverse_transform(predicted_class)
 
     print(f"La classe prédite est : {predicted_class}")
-    y_orig=test_y_svc
+    y_orig = np.array(test_y_svc).ravel().astype(int)
+    y_pred = np.array(y_pred).ravel().astype(int)
     accuracy = accuracy_score(y_orig,y_pred)
     f1 = f1_score(y_orig, y_pred,average='weighted')
     

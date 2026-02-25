@@ -15,3 +15,5 @@ input/Dfcontour.csv
 input/DfColorMean.json
 input/X_train_update.csv
 
+# Variables d'environnement (credentials AWS)
+.env

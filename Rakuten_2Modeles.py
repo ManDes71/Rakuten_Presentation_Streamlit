@@ -134,7 +134,10 @@ def show():
    
     st.write("Modèle RNN EMBEDDING GRU") 
     gru = rnn.RNN_GRU("EMBEDDING GRU")
-    y_orig,y_pred = gru.restore_predict_arrays()
+    with st.spinner("Chargement EMBEDDING GRU..."):
+        y_orig,y_pred = gru.restore_predict_arrays()
+    y_orig = np.array(y_orig).ravel().astype(int)
+    y_pred = np.array(y_pred).ravel().astype(int)
     f1 = f1_score(y_orig, y_pred, average='weighted')
     acc_score,classif=ds.get_classification_report(y_orig, y_pred)
     st.write("Accuracy: ", acc_score/100)
@@ -143,8 +146,8 @@ def show():
     del y_orig, y_pred, f1, acc_score,classif
     gru = None
     
-    train_X_gru = ds.load_ndarray('EMBEDDING GRU_CONCAT2_X_train') 
-    test_X_gru = ds.load_ndarray('EMBEDDING_GRU_CONCAT2_X_test') 
+    train_X_gru = ds.load_ndarray('EMBEDDING_GRU_CONCAT2_X_train') 
+    test_X_gru = ds.load_ndarray('EMBEDDING GRU_CONCAT2_X_test') 
     #train_y_gru = ds.load_ndarray('EMBEDDING GRU_y_train')
     #test_y_gru = ds.load_ndarray('EMBEDDING GRU_y_test')
    
@@ -174,13 +177,13 @@ def show():
     lsvc = None
     gc.collect()
     lr = ml.ML_LinearSVC("LinearSVC",process=False)
+    with st.spinner("Chargement du modèle LinearSVC..."):
+        lr_mod = lr.load_modele()
+    y_orig = np.array(lr.get_y_orig()).ravel().astype(int)
+    y_pred = np.array(lr.get_y_pred()).ravel().astype(int)
 
-    lr_mod = lr.load_modele()
-    y_orig = lr.get_y_orig()
-    y_pred = lr.get_y_pred()
-
-    f1 = f1_score(y_orig.values, y_pred, average='weighted')
-    acc_score,classif=ds.get_classification_report(y_orig.values, y_pred)
+    f1 = f1_score(y_orig, y_pred, average='weighted')
+    acc_score,classif=ds.get_classification_report(y_orig, y_pred)
     st.write("Accuracy: ", acc_score/100)
     st.write("F1 Score: ", f1)
 
@@ -188,7 +191,7 @@ def show():
     lr_mod = None
 
 
-    st.markdown("""**Entrainement du modèle commun** (agrégation des 2 modèles par la fonction **Concatenate** de TensorFlow)  : environ 20 s """)
+    st.markdown("""**Entrainement du modèle commun** (agrégation des 2 modèles par la fonction **Concatenate** de TensorFlow)  : environ 40 s, veuillez patienter ... """)
 
     print("train_X_svc.shape = ",train_X_svc.shape)
     print("train_X_gru.shape = ",train_X_gru.shape)
@@ -208,9 +211,9 @@ def show():
     label_encoder = LabelEncoder()
     
     
-    y_classes_converted = label_encoder.fit_transform(train_y_svc)
+    y_classes_converted = label_encoder.fit_transform(np.array(train_y_svc).copy())
     y_train_Network = to_categorical(y_classes_converted)
-    y_classes_converted = label_encoder.transform(test_y_svc)
+    y_classes_converted = label_encoder.transform(np.array(test_y_svc).copy())
     y_test_Network = to_categorical(y_classes_converted)
 
     del train_y_svc
@@ -282,17 +285,18 @@ def show():
 
    
 
-    #st.write("Entraînement du modèle...")
+    st.write("Entraînement du modèle...")
     
     class ProgressCallback(tf.keras.callbacks.Callback):
         def on_epoch_end(self, epoch, logs=None):
-            progress_bar.progress((epoch + 1) / 3)  # 10 époques dans votre cas
+            progress_bar.progress((epoch + 1) / 3)  # 3 époques dans votre cas
             status_text.text(f"Époque actuelle : {epoch + 1}, Perte : {logs['loss']:.4f}, Précision : {logs['accuracy']:.4f}")
+
 
     # Entraînement du modèle
     with tf.device('/CPU:0'):
         final_model.fit([train_X_svc,train_X_gru], y=y_train_Network, epochs=3, batch_size=32,
-                       callbacks=[ProgressCallback()])
+                    callbacks=[ProgressCallback()])
 
     print("modèle entrainné")
     #ds.save_model(final_model,"Rakuten_2M_weight.weights") 
@@ -317,7 +321,8 @@ def show():
     y_pred = label_encoder.inverse_transform(predicted_class)
 
     #print(f"La classe prédite est : {predicted_class}")
-    y_orig=test_y_svc
+    y_orig = np.array(test_y_svc).ravel().astype(int)
+    y_pred = np.array(y_pred).ravel().astype(int)
     accuracy = accuracy_score(y_orig,y_pred)
     f1 = f1_score(y_orig, y_pred,average='weighted')
     

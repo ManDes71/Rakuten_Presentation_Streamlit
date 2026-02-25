@@ -2,6 +2,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+import warnings
+import streamlit as st
+
+# Suppression des avertissements de version sklearn (modèles créés avec une version antérieure)
+warnings.filterwarnings("ignore", category=UserWarning, module="sklearn")
 
 
 from sklearn.model_selection import train_test_split
@@ -69,12 +74,14 @@ def save_ndarray(Xarray,name_sav) :
     with open(get_RACINE_SAUVEGARDE()+ name_sav+ '.pkl', 'wb') as f:
         pd.to_pickle(Xarray, f)
         
+@st.cache_data(show_spinner=False)
 def load_ndarray(name_sav) :
     with open(get_RACINE_SAUVEGARDE() + name_sav+ '.pkl', 'rb') as f:
         Xarray = pd.read_pickle(f)
     return   Xarray  
 def save_dataframe(df,name_sav) :
     df.to_csv(get_RACINE_DOSSIER() + name_sav)
+@st.cache_data(show_spinner=False)
 def load_dataframe(name_sav) :
     df = pd.read_csv(get_RACINE_DOSSIER() + name_sav)    
     return df
@@ -88,6 +95,7 @@ def load_model(model,name_sav) :
     
 def joblib_dump(model,name_sav) :
     dump(model,get_RACINE_SAUVEGARDE() + name_sav+'.joblib')
+@st.cache_resource(show_spinner=False)
 def joblib_load(name_sav) :
     return load(get_RACINE_SAUVEGARDE() + name_sav+'.joblib')
     

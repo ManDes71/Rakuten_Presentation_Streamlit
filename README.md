@@ -1,7 +1,60 @@
+## 🆕 Nouveautés — Version 2.0 (Amazon S3)
+
+Cette version introduit le téléchargement automatique des fichiers volumineux depuis un **bucket Amazon S3** au démarrage du conteneur Docker, éliminant ainsi le besoin de les télécharger manuellement via `curl`.
+
+**Changements principaux :**
+- ➕ **`entrypoint.sh`** : script de démarrage qui télécharge les fichiers manquants depuis S3 avant de lancer Streamlit. Les fichiers déjà présents sont ignorés (pas de re-téléchargement inutile).
+- ➕ **`.env` / `.env.example`** : les credentials AWS et la configuration du bucket S3 sont désormais gérés via des variables d'environnement (fichier `.env` exclu du dépôt git).
+- 🔧 **`Dockerfile`** : ajout de `awscli` et remplacement de l'`ENTRYPOINT` par `entrypoint.sh`.
+- 🔧 **`.gitignore`** : le fichier `.env` est désormais ignoré par git pour ne pas exposer les credentials.
+
+**Prérequis :** disposer d'un bucket S3 accessible et renseigner les variables dans un fichier `.env` (voir `.env.example`).
+
+---
+
 **Commandes à exécuter :**  
 **docker build -t rakuten_projet .**  
-**docker run -d -p 8501:8501 rakuten_projet**  
+**docker run --env-file .env -d -p 8501:8501 rakuten_projet**  
 **écouter sur http://localhost:8501/rakuten/**  
+
+## 🐳 Inspection du conteneur Docker
+
+Voici les commandes utiles pour inspecter et dépanner le conteneur :
+
+### 1. Voir les logs de démarrage (téléchargements S3)
+
+```bash
+docker logs <container_id>
+```
+
+Ou en temps réel :
+
+```bash
+docker logs -f <container_id>
+```
+
+### 2. Vérifier les fichiers téléchargés
+
+```bash
+docker exec <container_id> ls -lh /app/fichiers/
+docker exec <container_id> ls -lh /app/input/
+```
+
+### 3. Accéder à un shell interactif
+
+```bash
+docker exec -it <container_id> sh
+```
+
+Puis explorer les répertoires :
+
+```bash
+ls -lh /app/fichiers/
+ls -lh /app/input/
+```
+
+---
+
 **----------------------------------------------------**     
 
 

@@ -17,7 +17,8 @@ RUN echo "deb http://ftp.fr.debian.org/debian bookworm main" > /etc/apt/sources.
     build-essential \
     curl \
     software-properties-common \
-    git && \
+    git \
+    awscli && \
     rm -rf /var/lib/apt/lists/*
 
 
@@ -39,11 +40,16 @@ RUN pip3 install --no-cache-dir --default-timeout=1000 -r requirements.txt && \
 # Copie de tous les autres fichiers nécessaires
 COPY . /app/
 
+# Rendre le script d'entrée exécutable
+RUN chmod +x /app/entrypoint.sh
+
 # Exposition du port utilisé par l'application
 EXPOSE 8501
 
 # Vérification de la santé de l'application
-HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health || exit 1
+# --start-period=600s : laisse 10 min pour les téléchargements S3 avant de commencer les checks
+HEALTHCHECK --start-period=600s --interval=30s --timeout=10s --retries=3 \
+    CMD curl --fail http://localhost:8501/_stcore/health || exit 1
 
-# Point d'entrée pour démarrer l'application
-ENTRYPOINT ["streamlit", "run", "RAKUTEN.py", "--server.port=8501", "--server.address=0.0.0.0",  "--server.enableCORS=false", "--server.headless=true", "--server.enableXsrfProtection=false","--server.baseUrlPath=/rakuten"]
+# Point d'entrée : télécharge les fichiers S3 puis lance Streamlit
+ENTRYPOINT ["/app/entrypoint.sh"]
