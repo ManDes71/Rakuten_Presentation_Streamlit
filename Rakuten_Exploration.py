@@ -209,6 +209,6 @@ def show():
             ax.imshow(moyenne_image)
         plt.subplots_adjust(wspace=0.1, hspace=0.5)
         st.pyplot(fig6) 
-        del DfColorMean, cat, axs, moyenne, image, ax 
+        del DfColorMean, cat, axs, moyenne_image, index, row, ax 
         fig6 = None
                  
