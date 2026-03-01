@@ -11,14 +11,12 @@ WORKDIR /app
 #    software-properties-common \
 #    git \
 #    && rm -rf /var/lib/apt/lists/*
-RUN echo "deb http://ftp.fr.debian.org/debian bookworm main" > /etc/apt/sources.list && \
-    apt-get update && \
+RUN apt-get update && \
     apt-get install -y \
     build-essential \
     curl \
-    software-properties-common \
-    git \
-    awscli && \
+    git && \
+    pip install --no-cache-dir awscli && \
     rm -rf /var/lib/apt/lists/*
 
 
